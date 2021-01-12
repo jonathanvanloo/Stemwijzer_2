@@ -1,0 +1,132 @@
+body{
+	background-image: url(images/background.jpg);
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+#kader{
+	background-color: white;
+	margin-top: 25px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 1200px;
+	height: 650px;
+}
+
+#logo-stemwijzer, #title, #blue, #divpersoon, #divslot, #stemmentracker, #info{
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+#logo-stemwijzer{
+	margin-top: 50px;
+	width: 400px;
+}
+
+#start{
+	position: absolute;
+	margin-left: 900px;
+	color: white;
+	background-color: black;
+	padding: 15px 50px 15px 50px;
+	border-radius: 8px;
+}
+
+#blue{
+	color: deepskyblue;
+	margin-bottom: 50px;
+}
+
+#divpersoon, #divslot{
+
+}
+
+#persoonlink, #slotlink{
+	width: 350px;
+	display: flex;
+	font-size: 18px;
+	text-decoration: none;
+	color: black;
+	margin-top: 20px;
+}
+
+#persoonimg, #slotimg{
+	width: 50px;
+	margin-right: 25px;
+}
+
+#mid{
+	margin-top: 25px;
+	border-top: 3px dotted;
+}
+
+#logo-stemmentrackerimg{
+	margin-top: 40px;
+	width: 400px;
+}
+
+#info{
+	font-size: 18px
+}
+
+#bottom {
+	background-color: #01B4DC;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	width: 1200px;
+	height: 480px;
+}
+
+#bottomcontent {
+	padding-top: 40px;
+	padding-right: 100px;
+	padding-left: 100px;
+}
+
+#partijentitle {
+	color: white;
+}
+
+#partij:hover {
+    transform: scale(2);
+    transition-duration: 0.5s;
+}
+
+#partij {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-color: white;
+	border-radius: 25px;
+}
+
+#partijlogo {
+	max-width: 50px;
+	max-height: 50px;
+	background-color: white;
+	border-radius: 25px;
+}
+
+#footerstemwijzerimg {
+	width: 150px;
+	height: 25px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-left: 151px;
+}
+
+#footerprodeosimg {
+	float: right;
+	width: 100px;
+	height: 20px;
+	margin-top: 30px;
+}
+
+#footer1vimg {
+	float: right;
+	margin-top: 30px;
+	margin-right: 151px;
+	margin-left: 15px;
+}
