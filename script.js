@@ -9,8 +9,6 @@ var currentQuestion = 0;
 var answers = [];
 vraag()
 
-console.log(subjects[0].parties[*].position)
-
 function vraag() {
 	buttonBack.onclick = back;
 	buttonNext.onclick = next;
@@ -27,7 +25,7 @@ function back() {
 		currentQuestion--
 		vraag()
 	} else {
-		result()
+		home()
 	}
 }
 
@@ -68,6 +66,10 @@ function contra() {
 	} else {
 		result()
 	}
+}
+
+function home() {
+  	window.location.assign("index.html")
 }
 
 function result() {
