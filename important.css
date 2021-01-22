@@ -1,0 +1,76 @@
+body {
+	background-image: url(images/background.jpg);
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+#kader {
+	background-color: lightgrey;
+	margin-top: 25px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 1200px;
+	height: 650px;
+}
+
+#back {
+	margin-left: 50px;
+	float: left;
+	font-size: 25px;
+	border-radius: 25px;
+	padding: 10px 10px 10px 10px;
+	background-color: deepskyblue
+}
+
+#next {
+	margin-right: 50px;
+	float: right;
+	font-size: 25px;
+	padding: 10px 10px 10px 10px;
+	border-radius: 25px;
+	background-color: deepskyblue
+}
+
+#optiesContainer {
+	float: left;
+	font-size: 30px;
+	margin-left: 200px;
+	margin-top: -50px;
+}
+
+#grote, #seculiere {
+	margin-left: 100px
+}
+
+input[type="checkbox"] {
+	height: 20px;
+	width: 20px;
+}
+
+#partijen {
+	font-size: 20px;
+	list-style-type: none;
+	position: fixed;
+	top: 180px;
+	margin-left: 75px;
+	border: 5px solid deepskyblue;
+	padding: 20px 170px 20px 20px;
+}
+
+#questions {
+	font-size: 20px;
+	list-style-type: none;
+	position: fixed;
+	top: 180px;
+	margin-left: 394px;
+	column-count: 3;
+  	column-gap: 150px;
+  	column-rule: 5px solid deepskyblue;
+	border: 5px solid deepskyblue;
+	padding: 20px 20px 30px 20px;
+}
+
+li {
+	margin: 10px;
+}
