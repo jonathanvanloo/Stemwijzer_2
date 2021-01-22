@@ -7,6 +7,7 @@ var buttonNone = document.getElementById("none");
 var buttonContra = document.getElementById("contra"); 
 var currentQuestion = 0;
 var answers = [];
+var finished = false
 vraag()
 
 function vraag() {
@@ -40,39 +41,24 @@ function next() {
 
 function pro() {
 	answers[currentQuestion] = {answer: 'pro'};
-	if (currentQuestion < 5) {
-		currentQuestion++
-		vraag()
-	} else {
-		result()
-	}
+	next()
 }
 
 function none() {
 	answers[currentQuestion] = {answer: 'none'};
-	if (currentQuestion < 5) {
-		currentQuestion++
-		vraag()
-	} else {
-		result()
-	}
+	next()
 }
 
 function contra() {
 	answers[currentQuestion] = {answer: 'contra'};
-	if (currentQuestion < 5) {
-		currentQuestion++
-		vraag()
-	} else {
-		result()
-	}
+	next()
 }
 
 function home() {
-  	window.location.assign("index.html")
+  	window.location.assign("home.html")
 }
 
 function result() {
-	alert("einde vraagenlijst")
+  	window.location.assign("result.html")
 	console.table(answers);
 }
