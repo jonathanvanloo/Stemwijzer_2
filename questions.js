@@ -7,35 +7,33 @@ const buttonNone = document.getElementById('none');
 const buttonContra = document.getElementById('contra'); 
 var currentQuestion = 0;
 var answers = [];
-var allParties = [];
-var outcome = [
-{"VVD": 0},
-{"CDA": 0},
-{"PVV": 0},
-{"D66": 0},
-{"GroenLinks": 0},
-{"SP": 0},
-{"PvdA": 0},
-{"ChristenUnie": 0},
-{"Partij voor de Dieren": 0},
-{"SGP": 0},
-{"DENK": 0},
-{"Forum voor Democratie": 0},
-{"Lokaal in de Kamer": 0},
-{"OndernemersPartij": 0},
-{"VNL": 0},
-{"Nieuwe Wegen": 0},
-{"De Burger Beweging": 0},
-{"Piratenpartij": 0},
-{"Artikel 1": 0},
-{"Libertarische Partij": 0},
-{"50Plus": 0},
-{"Vrijzinnige Partij": 0},
-{"Niet Stemmers": 0}
+var allParties = [
+{name: "VVD", score: 0},
+{name: "CDA", score: 0},
+{name: "PVV", score: 0},
+{name: "D66", score: 0},
+{name: "GroenLinks", score: 0},
+{name: "SP", score: 0},
+{name: "PvdA", score: 0},
+{name: "ChristenUnie", score: 0},
+{name: "Partij voor de Dieren", score: 0},
+{name: "SGP", score: 0},
+{name: "DENK", score: 0},
+{name: "Forum voor Democratie", score: 0},
+{name: "Lokaal in de Kamer", score: 0},
+{name: "OndernemersPartij", score: 0},
+{name: "VNL", score: 0},
+{name: "Nieuwe Wegen", score: 0},
+{name: "De Burger Beweging", score: 0},
+{name: "Piratenpartij", score: 0},
+{name: "Artikel 1", score: 0},
+{name: "Libertarische Partij", score: 0},
+{name: "50Plus", score: 0},
+{name: "Vrijzinnige Partij", score: 0},
+{name: "Niet Stemmers", score: 0}
 ];
 
 vraag()
-// renderParties()
 
 function vraag() {
 	buttonBack.onclick = back;
@@ -46,6 +44,7 @@ function vraag() {
 	buttonNone.onclick = none;
 	buttonContra.onclick = contra;
 	prosessAnswer()
+	console.log(allParties)
 }
 
 function prosessAnswer() {
@@ -53,24 +52,21 @@ function prosessAnswer() {
 	var party = parties.length-2;
 	for (var i = 0; i <= subj; i++) {;
 		for (var a = 0; a <= party; a++) {
-			console.log(subjects[i].parties[a].position);
 			if (subjects[i].parties[a].position == answers[currentQuestion-1]) {
-				console.log(subjects[i].parties[a].name);
-				// outcome.find(subjects[i].parties[a].name);
+				findPosition(subjects[i].parties[a].name, allParties)
 			}
 		}
 	}
+	console.log(allParties)
 }
 
-// function renderParties() {
-// 	var party = parties.length-1;
-// 	for (var a = 0; a <= party; a++) {
-// 		console.log(parties[a].name);
-// 		allParties += {name : parties[a].name};
-// 		allParties += {score : 0};
-// 	}
-// 		console.log(allParties);
-// }
+function findPosition(key, array) {
+	for (var i = 0; i < array.length; i++) {
+		if (array[i].name == key) {
+			array[i].score++
+		}
+	}
+}
 
 function back() {
 	if (currentQuestion > 0) {
