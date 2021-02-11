@@ -53,7 +53,7 @@ function prosessAnswer() {
 	for (var i = 0; i <= subj; i++) {;
 		for (var a = 0; a <= party; a++) {
 			if (subjects[i].parties[a].position == answers[currentQuestion-1]) {
-				findPosition(subjects[i].parties[a].name, allParties)
+				return findPosition(subjects[i].parties[a].name, allParties)
 			}
 		}
 	}
