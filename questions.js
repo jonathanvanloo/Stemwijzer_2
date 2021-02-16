@@ -1,13 +1,12 @@
-const buttonBack = document.getElementById('back');
-const buttonNext = document.getElementById('next');
-const buttonTitle = document.getElementById('title');
-const buttonStatement = document.getElementById('statement');
-const buttonPro = document.getElementById('pro');
-const buttonNone = document.getElementById('none');
-const buttonContra = document.getElementById('contra');
+const buttonBack = document.getElementById('Back');
+const buttonNext = document.getElementById('Next');
+const buttonTitle = document.getElementById('Title');
+const buttonStatement = document.getElementById('Statement');
+const buttonPro = document.getElementById('Pro');
+const buttonNone = document.getElementById('None');
+const buttonContra = document.getElementById('Contra');
 var currentQuestion = 0;
 var answers = [];
-var answerd = false;
 var allParties = [
 	{name: "VVD", score: 0},
 	{name: "CDA", score: 0},
@@ -37,10 +36,11 @@ var allParties = [
 vraag()
 
 function vraag() {
+	selectButtons()
 	buttonBack.onclick = back;
 	buttonNext.onclick = next;
-	title.innerHTML = subjects[currentQuestion].title;
-	statement.innerHTML = subjects[currentQuestion].statement;
+	Title.innerHTML = subjects[currentQuestion].title;
+	Statement.innerHTML = subjects[currentQuestion].statement;
 	buttonPro.onclick = pro;
 	buttonNone.onclick = none;
 	buttonContra.onclick = contra;
@@ -67,12 +67,12 @@ function findPosition(key, array) {
 	}
 }
 
-function selectedAnswer(button) {
-	if (answers[currentQuestion-1].length == currentQuestion) {
-		answerd = true
-	}
-	if (answerd) {
-		button.style.backgroundColor = "deepskyblue";
+function selectButtons() {
+	buttonPro.style.backgroundColor = "black";
+	buttonNone.style.backgroundColor = "black";
+	buttonContra.style.backgroundColor = "black";
+	if (answers[currentQuestion] != null) {
+		document.getElementById(answers[currentQuestion]).style.backgroundColor = "deepskyblue";
 	}
 }
 
@@ -96,19 +96,16 @@ function next() {
 
 function pro() {
 	answers[currentQuestion] = 'Pro';
-	selectedAnswer(buttonPro)
 	next();
 }
 
 function none() {
 	answers[currentQuestion] = 'None';
-	selectedAnswer(buttonNone)
 	next();
 }
 
 function contra() {
 	answers[currentQuestion] = 'Contra';
-	selectedAnswer(buttonContra)
 	next();
 }
 
