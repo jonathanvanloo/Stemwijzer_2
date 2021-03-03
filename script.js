@@ -1,7 +1,7 @@
 const buttonBack = document.getElementById('Back');
 const buttonNext = document.getElementById('Next');
-const buttonTitle = document.getElementById('Title');
-const buttonStatement = document.getElementById('Statement');
+const Title = document.getElementById('Title');
+const Statement = document.getElementById('Statement');
 const buttonPro = document.getElementById('Pro');
 const buttonNone = document.getElementById('None');
 const buttonContra = document.getElementById('Contra');
@@ -35,6 +35,19 @@ var allParties = [
 
 vraag()
 
+function compare(a, b) {
+	var a = a.score;
+	var b = b.score;
+  
+	let comparison = 0;
+	if (a > b) {
+	  comparison = -1;
+	} else if (a < b) {
+	  comparison = 1;
+	}
+	return comparison;
+  }
+  
 function vraag() {
 	selectButtons()
 	buttonBack.onclick = back;
@@ -44,25 +57,45 @@ function vraag() {
 	buttonPro.onclick = pro;
 	buttonNone.onclick = none;
 	buttonContra.onclick = contra;
-	prosessAnswer()
+	console.log(allParties)
 }
 
-function prosessAnswer() {
-	var subj = subjects.length-1;
-	var party = parties.length-2;
-	for (var i = 0; i <= subj; i++) {;
-		for (var a = 0; a <= party; a++) {
-			if (subjects[i].parties[a].position == answers[currentQuestion-1]) {
-				return findPosition(subjects[i].parties[a].name, allParties);
+// score in de data.js toeveogen bij de parties
+// data.js online
+// bijna alle html over zetten naar js
+
+function calculateScore() {
+	for (let i = 0; i < subjects.length; i++) {
+		for (let a = 0; a < subjects[i].parties.length; a++) {
+			if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
+				console.log(subjects[i].parties[a].name);
+				console.log(subjects[i].parties[a].position);
+			}
+		}
+	}
+	console.log(allParties);
+	console.log("dfsfdfsdfsdfsdfsdfsdf");
+}
+
+function prosessAnswers() {
+	var subj = subjects.length;
+	var party = parties.length;
+	for (var i = 0; i < subj; i++) {;
+		for (var a = 0; a < party; a++) {
+			if (subjects[i].parties[a].position == answers[currentQuestion-1].toLowerCase()) {
+				return scoreCalculation(subjects[i].parties[a].name);
 			}
 		}
 	}
 }
 
-function findPosition(key, array) {
-	for (var i = 0; i < array.length; i++) {
-		if (array[i].name == key) {
-			array[i].score++;
+function scoreCalculation(name) {
+	for (var i = 0; i < allParties.length; i++) {
+		if (allParties[i].name == name) {
+			allParties[i].score++;
+			allParties.sort(compare);
+		} else if (backboolean == true) {
+			allParties[i].score--;
 		}
 	}
 }
@@ -86,10 +119,11 @@ function back() {
 }
 
 function next() {
-	if (currentQuestion < 5) {
+	if (currentQuestion < subjects.length-1) {
 		currentQuestion++;
 		vraag();
 	} else {
+		calculateScore()
 		belangerijkeVraagenEnPartijen();
 	}
 }
@@ -114,6 +148,37 @@ function home() {
 }
 
 function belangerijkeVraagenEnPartijen() {
-  	// sessionStorage.setItem("answers", answers);
-  	window.location.assign('important.html');
+	important()
+}
+
+function important() {
+	
+	const buttonBack = document.getElementById('back');
+	const buttonNext = document.getElementById('next');
+	
+	buttonBack.onclick = back;
+	buttonNext.onclick = next;
+	
+	for (let i = 0; i < subjects.length; i++) {
+		var li = document.createElement("li");
+		var question = document.createTextNode(subjects[i].title);
+		li.appendChild(question);
+		document.getElementById("questions").appendChild(li);
+	}
+	
+	for (let i = 0; i < 10; i++) {
+		var li = document.createElement("li");
+		var question = document.createTextNode(allParties[i].name);
+		li.appendChild(question);
+		document.getElementById("partijen").appendChild(li);
+	}
+	
+	function back() {
+		window.history.back();
+	}
+	
+	function next() {
+		window.location.assign('result.html')
+	}
+	
 }
