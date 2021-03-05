@@ -136,23 +136,7 @@ body{
 	display: none;
 }
 
-body{
-	background-image: url(images/background.jpg);
-	background-position: center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
-}
-
-#kader{
-	background-color: lightgrey;
-	margin-top: 25px;
-	margin-right: auto;
-	margin-left: auto;
-	width: 1200px;
-	height: 650px;
-}
-
-#Back{
+#Back, #BackQuestions{
 	margin-left: 50px;
 	float: left;
 	font-size: 25px;
@@ -161,7 +145,7 @@ body{
 	background-color: deepskyblue
 }
 
-#Next{
+#Next, #NextResults{
 	margin-right: 50px;
 	float: right;
 	font-size: 25px;
@@ -209,22 +193,6 @@ body{
 	display: none;
 }
 
-body {
-	background-image: url(images/background.jpg);
-	background-position: center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
-}
-
-#kader {
-	background-color: lightgrey;
-	margin-top: 25px;
-	margin-right: auto;
-	margin-left: auto;
-	width: 1200px;
-	height: 650px;
-}
-
 #back {
 	margin-left: 50px;
 	float: left;
@@ -259,7 +227,7 @@ input[type="checkbox"] {
 	width: 20px;
 }
 
-#partijen {
+#partie {
 	font-size: 20px;
 	list-style-type: none;
 	position: fixed;
@@ -291,23 +259,7 @@ li {
 	display: none;
 }
 
-body {
-	background-image: url(images/background.jpg);
-	background-position: center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
-}
-
-#kader {
-	background-color: lightgrey;
-	margin-top: 25px;
-	margin-right: auto;
-	margin-left: auto;
-	width: 1200px;
-	height: 650px;
-}
-
-#back {
+#home {
 	margin-left: 534px;
 	float: left;
 	font-size: 25px;
@@ -334,7 +286,7 @@ body {
 	margin-right: 220px;
 }
 
-img {
+#partielogo {
 	width: 100px;
 	height: 100px;
 	background-color: white;

@@ -13,7 +13,7 @@
 				<img id="logo-stemwijzer" src="images/logo-stemwijzer.svg">
 				<h2 id="title">StemWijzer Tweede Kamer 2017</h2>
 				<h2 id="blue" >Test uw politieke voorkeur aan de hand van 30 stellingen</h2>
-				<a href="questions.html" id="start">Start</a>
+				<button id="start">Start</button>
 				<div id="divpersoon" >
 					<a id="persoonlink" href="https://tweedekamer2017.stemwijzer.nl/xsable/">
 						<img id="persoonimg" src="images\persoon.svg">
@@ -202,15 +202,15 @@
 	</div>
 	<div id="importantPage">
 		<div id="kader">
-			<p id="back">Vorige vraag</p>
-			<p id="next">Volgende vraag</p>
+			<button id="BackQuestions">Terug naar vragen</button>
+			<button id="NextResults">Naar resultaat pagina</button>
 			<div id="optiesContainer">
 				<input id="grote" type="checkbox" name="grote">
-				  <label for="grote">Grote partijen</label>
+				<label for="grote">Grote partijen</label>
 				<input id="seculiere" type="checkbox" name="seculiere">
-				  <label for="seculiere">Seculiere partijen</label>
+				<label for="seculiere">Seculiere partijen</label>
 			</div>
-			<ul id="partijen">
+			<ul id="partie">
 			</ul>
 			<ul id="questions">
 			</ul>
@@ -218,17 +218,18 @@
 	</div>
 	<div id="resultPage">
 		<div id="kader">	
-			<p id="back">home</p>
+			<button id="home">home</button>
 			<div id="top3">
 				<i id="partie1"><a href=""><img id="partielogo" src="logos/vvd.svg"></a>
-				<h4 id="percentage">23%</h4></i>
+					<h4 id="percentage">23%</h4></i>
 				<i id="partie2"><a href=""><img id="partielogo" src="logos/pvda.svg"></a>
-				<h4 id="percentage">45%</h4></i>
-				<i id="partie3"><a href=""><img id="partielogo" src="logos/pvv.svg"></a>
-				<h4 id="percentage">03%</h4></i>
+					<h4 id="percentage">45%</h4></i>
+					<i id="partie3"><a href=""><img id="partielogo" src="logos/pvv.svg"></a>
+						<h4 id="percentage">03%</h4></i>
+					</div>
+					<a id="review" ><h2>vragen bekijken</h2></a>
+				</div>
 			</div>
-			<a id="review" href="file:///E:/school/jaar%202+3/code_jaar_2/Stemwijzer_2/questions.html" ><h2>vragen bekijken</h2></a>
-		</div>
-	</div>
+			<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
