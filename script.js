@@ -7,36 +7,18 @@ const Statement = document.getElementById('Statement');
 const buttonPro = document.getElementById('Pro');
 const buttonNone = document.getElementById('None');
 const buttonContra = document.getElementById('Contra');
+const buttonSeculiere = document.getElementById('seculiere');
+const buttonGrote = document.getElementById('grote');
 var currentQuestion = 0;
 var answers = [];
 var filledIn = false
-var allParties = [
-	{name: "VVD", score: 0},
-	{name: "CDA", score: 0},
-	{name: "PVV", score: 0},
-	{name: "D66", score: 0},
-	{name: "GroenLinks", score: 0},
-	{name: "SP", score: 0},
-	{name: "PvdA", score: 0},
-	{name: "ChristenUnie", score: 0},
-	{name: "Partij voor de Dieren", score: 0},
-	{name: "SGP", score: 0},
-	{name: "DENK", score: 0},
-	{name: "Forum voor Democratie", score: 0},
-	{name: "Lokaal in de Kamer", score: 0},
-	{name: "OndernemersPartij", score: 0},
-	{name: "VNL", score: 0},
-	{name: "Nieuwe Wegen", score: 0},
-	{name: "De Burger Beweging", score: 0},
-	{name: "Piratenpartij", score: 0},
-	{name: "Artikel 1", score: 0},
-	{name: "Libertarische Partij", score: 0},
-	{name: "50Plus", score: 0},
-	{name: "Vrijzinnige Partij", score: 0},
-	{name: "Niet Stemmers", score: 0}
-];
+var clicked = false
+
+for (let i = 0; i < parties.length; i++) {
+	parties[i].score = 0
+}
  
-home()
+questions()
 
 function home() {
 	setdisplay("inline","none","none","none")
@@ -50,9 +32,9 @@ function questions() {
 	buttonNext.onclick = next;
 	Title.innerHTML = subjects[currentQuestion].title;
 	Statement.innerHTML = subjects[currentQuestion].statement;
-	buttonPro.onclick = pro;
-	buttonNone.onclick = none;
-	buttonContra.onclick = contra;
+	buttonPro.onclick = function(){setAnswer('Pro')};
+	buttonNone.onclick = function(){setAnswer('None')};
+	buttonContra.onclick = function(){setAnswer('Contra')};
 }
 
 function important() {
@@ -60,9 +42,11 @@ function important() {
 	currentQuestion = 0;
 	buttonBackQuestions.onclick = questions;
 	buttonNextResults.onclick = result;
-	setquestions()
-	setparties()
-	filledIn = true
+	setquestions();
+	setParties();
+	buttonGrote.onclick = setGroteVragenFilteren;
+	buttonSeculiere.onclick = setSeculiereVragenFilteren;
+	filledIn = true;
 }
 
 function result() {
@@ -98,52 +82,104 @@ function next() {
 		currentQuestion++;
 		questions();
 	} else {
-		// calculateScore()
+		calculateScore()
 		important();
 	}
 }
 
-function pro() {
-	answers[currentQuestion] = 'Pro';
+function setAnswer(answer) {
+	answers[currentQuestion] = answer;
 	next();
 }
 
-function none() {
-	answers[currentQuestion] = 'None';
-	next();
+// important page
+
+function setGroteVragenFilteren() {
+	clearParties()
+	if (buttonGrote.checked == true) {
+		for (let i = 0; i < parties.length; i++) {
+			if (parties[i].size >= 15) {
+				updatePartie(i)
+			}
+		}
+	} else {
+		resetParties()
+	}
 }
 
-function contra() {
-	answers[currentQuestion] = 'Contra';
-	next();
+function setSeculiereVragenFilteren() {
+	clearParties()
+	if (buttonSeculiere.checked == true) {
+		for (let i = 0; i < parties.length; i++) {
+			if (parties[i].secular == true) {
+				updatePartie(i)
+			}
+		}
+	}	else {
+		resetParties()
+	}
 }
 
-// result page
+function setParties() {
+	for (let i = 0; i < parties.length; i++) {
+		var partieTop = document.createElement("li");
+		var question = document.createTextNode(parties[i].name);
+		partieTop.setAttribute("id", "partieTop");
+		partieTop.appendChild(question);
+		document.getElementById("partie").appendChild(partieTop);
+	}
+}
+
+function resetParties() {
+	for (let i = 0; i < parties.length; i++) {
+		var partieTop = document.getElementById("partieTop");
+		partieTop.innerHTML = parties[i].name;
+		document.getElementById("partie").appendChild(partieTop);
+	}
+}
+
+function updatePartie(i) {
+		var partieTop = document.getElementById("partieTop");
+		partieTop.innerHTML = parties[i].name;
+		document.getElementById("partie").appendChild(partieTop);
+}
+
+function clearParties() {
+	for (let i = 0; i < parties.length; i++) {
+		var partieTop = document.getElementById("partieTop");
+		partieTop.innerHTML = "";
+		document.getElementById("partie").appendChild(partieTop);
+	}
+}
+
+
+function setImportantQuestion() {
+	if (clicked == true) {
+		for (let i = 0; i < subjects.length; i++) {
+			console.log(subjects[i].title)
+		}
+	} else {
+		
+	}
+}
 
 function setquestions() {
 	if (filledIn == false) {	
 		for (let i = 0; i < subjects.length; i++) {
-			var li = document.createElement("li");
+			var impQuestion = document.createElement("li");
 			var question = document.createTextNode(subjects[i].title);
-			li.appendChild(question);
-			document.getElementById("questions").appendChild(li);
+			impQuestion.setAttribute("id", "impQuestion" + i);
+			impQuestion.appendChild(question);
+			document.getElementById("questions").appendChild(impQuestion);
+			document.getElementById('impQuestion' + i).onclick = setImportantQuestion;
 		}
-	}
-}
-
-function setparties() {	
-	for (let i = 0; i < 10; i++) {
-		var li = document.createElement("li");
-		var question = document.createTextNode(allParties[i].name);
-		li.appendChild(question);
-		document.getElementById("partijen").appendChild(li);
 	}
 }
 
 // other
 
 // set display function
-function setdisplay(home,questions,important,result) {
+function setdisplay(home, questions, important, result) {
 	document.getElementById("homePage").style.display = home; 
 	document.getElementById("questionsPage").style.display = questions; 
 	document.getElementById("importantPage").style.display = important; 
@@ -163,42 +199,20 @@ function compare(a, b) {
 	}
 	return comparison;
 }
+  
+
 
 // check where answer is equal to position of partie
 function calculateScore() {
 	for (let i = 0; i < subjects.length; i++) {
 		for (let a = 0; a < subjects[i].parties.length; a++) {
 			if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
-				console.log(subjects[i].parties[a].name);
-				console.log(subjects[i].parties[a].position);
+				parties.find(checkName).score++
+			}
+			function checkName(parties) { 
+				return parties.name == subjects[i].parties[a].name;
 			}
 		}
 	}
-	console.log(allParties);
-	console.log("dfsfdfsdfsdfsdfsdfsdf");
-}
-
-// check where answer is equal to position of partie OLD
-function prosessAnswers() {
-	var subj = subjects.length;
-	var party = parties.length;
-	for (var i = 0; i < subj; i++) {;
-		for (var a = 0; a < party; a++) {
-			if (subjects[i].parties[a].position == answers[currentQuestion-1].toLowerCase()) {
-				return scoreCalculation(subjects[i].parties[a].name);
-			}
-		}
-	}
-}
-
-// add score to partie with the same position 
-function scoreCalculation(name) {
-	for (var i = 0; i < allParties.length; i++) {
-		if (allParties[i].name == name) {
-			allParties[i].score++;
-			allParties.sort(compare);
-		} else if (backboolean == true) {
-			allParties[i].score--;
-		}
-	}
+	parties.sort(compare);
 }
