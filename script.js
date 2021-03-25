@@ -12,7 +12,6 @@ const buttonGrote = document.getElementById('grote');
 var currentQuestion = 0;
 var answers = [];
 var filledIn = false
-var clicked = false
 
 for (let i = 0; i < parties.length; i++) {
 	parties[i].score = 0
@@ -130,12 +129,38 @@ function setParties() {
 	}
 }
 
+function setquestions() {
+	if (filledIn == false) {	
+		for (let i = 0; i < subjects.length; i++) {
+			var impQuestion = document.createElement("li");
+			var question = document.createTextNode(subjects[i].title);
+			impQuestion.setAttribute("id", i);
+			impQuestion.appendChild(question);
+			document.getElementById("questions").appendChild(impQuestion);
+			impQuestion.setAttribute("onclick", "setImportantQuestion(this.id)");
+		}
+	}
+}
+
+function setImportantQuestion(i) {
+	for (let a = 0; a < subjects[i].parties.length; a++) {
+		if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
+			parties.find(checkName).score++;
+		}
+		function checkName(parties) { 
+			return parties.name == subjects[i].parties[a].name;
+		}
+	}
+	resetParties()
+}
+
 function resetParties() {
 	for (let i = 0; i < parties.length; i++) {
 		var partieTop = document.getElementById("partieTop");
 		partieTop.innerHTML = parties[i].name;
 		document.getElementById("partie").appendChild(partieTop);
 	}
+	parties.sort(compare);
 }
 
 function updatePartie(i) {
@@ -152,31 +177,22 @@ function clearParties() {
 	}
 }
 
-
-function setImportantQuestion() {
-	if (clicked == true) {
-		for (let i = 0; i < subjects.length; i++) {
-			console.log(subjects[i].title)
-		}
-	} else {
-		
-	}
-}
-
-function setquestions() {
-	if (filledIn == false) {	
-		for (let i = 0; i < subjects.length; i++) {
-			var impQuestion = document.createElement("li");
-			var question = document.createTextNode(subjects[i].title);
-			impQuestion.setAttribute("id", "impQuestion" + i);
-			impQuestion.appendChild(question);
-			document.getElementById("questions").appendChild(impQuestion);
-			document.getElementById('impQuestion' + i).onclick = setImportantQuestion;
-		}
-	}
-}
-
 // other
+
+// check where answer is equal to position of partie and add 1 to the score of that partie
+function calculateScore() {
+	for (let i = 0; i < subjects.length; i++) {
+		for (let a = 0; a < subjects[i].parties.length; a++) {
+			if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
+				parties.find(checkName).score++;
+			}
+			function checkName(parties) { 
+				return parties.name == subjects[i].parties[a].name;
+			}
+		}
+	}
+	parties.sort(compare);
+}
 
 // set display function
 function setdisplay(home, questions, important, result) {
@@ -198,21 +214,4 @@ function compare(a, b) {
 	  comparison = 1;
 	}
 	return comparison;
-}
-  
-
-
-// check where answer is equal to position of partie
-function calculateScore() {
-	for (let i = 0; i < subjects.length; i++) {
-		for (let a = 0; a < subjects[i].parties.length; a++) {
-			if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
-				parties.find(checkName).score++
-			}
-			function checkName(parties) { 
-				return parties.name == subjects[i].parties[a].name;
-			}
-		}
-	}
-	parties.sort(compare);
 }
