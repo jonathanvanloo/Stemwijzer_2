@@ -52,6 +52,14 @@ function result() {
 	setdisplay("none","none","none","inline")
 	document.getElementById('home').onclick = home;
 	document.getElementById('review').onclick = questions;
+	topDriepartijen()
+	console.table(parties)
+}
+
+function topDriepartijen() {
+	document.getElementById('percentage1').innerHTML = "U bent het voor " + parties[0].score/subjects.length*100 + "% eens met " + parties[0].name;
+	document.getElementById('percentage2').innerHTML = "U bent het voor " + parties[1].score/subjects.length*100 + "% eens met " + parties[1].name;
+	document.getElementById('percentage3').innerHTML = "U bent het voor " + parties[2].score/subjects.length*100 + "% eens met " + parties[2].name;
 }
 
 // score in de data.js toeveogen bij de parties
@@ -81,7 +89,7 @@ function next() {
 		currentQuestion++;
 		questions();
 	} else {
-		calculateScore()
+		calculateScore();
 		important();
 	}
 }
@@ -120,12 +128,14 @@ function setSeculiereVragenFilteren() {
 }
 
 function setParties() {
-	for (let i = 0; i < parties.length; i++) {
-		var partieTop = document.createElement("li");
-		var question = document.createTextNode(parties[i].name);
-		partieTop.setAttribute("id", "partieTop");
-		partieTop.appendChild(question);
-		document.getElementById("partie").appendChild(partieTop);
+	if (filledIn == false) {	
+		for (let i = 0; i < parties.length; i++) {
+			var partieTop = document.createElement("li");
+			var question = document.createTextNode(parties[i].name);
+			partieTop.setAttribute("id", "partieTop");
+			partieTop.appendChild(question);
+			document.getElementById("partie").appendChild(partieTop);
+		}
 	}
 }
 

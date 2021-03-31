@@ -273,24 +273,7 @@ li {
 	font-size: 20px;
 	position: fixed;
 	top: 200px;
-	margin-left: 200px;
-}
-
-#partie1, #partie2, #partie3 {
-	float: left;
-	display: inline;
-}
-
-#partie2 {
-	margin-left: 220px;
-	margin-right: 220px;
-}
-
-#partielogo {
-	width: 100px;
-	height: 100px;
-	background-color: white;
-	border-radius: 50px;
+	margin-left: 430px;
 }
 
 #review {
