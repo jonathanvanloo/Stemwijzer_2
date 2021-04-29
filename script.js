@@ -15,6 +15,7 @@ var filledIn = false
 
 for (let i = 0; i < parties.length; i++) {
 	parties[i].score = 0
+	parties[i].important = false
 }
  
 questions()
@@ -37,6 +38,7 @@ function questions() {
 }
 
 function important() {
+	console.table(parties)
 	setdisplay("none","none","inline","none")
 	currentQuestion = 0;
 	buttonBackQuestions.onclick = questions;
@@ -102,39 +104,48 @@ function setAnswer(answer) {
 // important page
 
 function setGroteVragenFilteren() {
-	clearParties()
-	if (buttonGrote.checked == true) {
+		resetParties()
+		if (buttonGrote.checked == true) {
 		for (let i = 0; i < parties.length; i++) {
-			if (parties[i].size >= 15) {
+			if (parties[i].size < 15) {
 				updatePartie(i)
 			}
 		}
 	} else {
 		resetParties()
 	}
+	console.table(parties)
+	parties.sort(compare);
 }
 
 function setSeculiereVragenFilteren() {
-	clearParties()
-	if (buttonSeculiere.checked == true) {
+		resetParties()
+		if (buttonSeculiere.checked == true) {
 		for (let i = 0; i < parties.length; i++) {
-			if (parties[i].secular == true) {
+			if (parties[i].secular != true) {
 				updatePartie(i)
 			}
 		}
-	}	else {
+	} else {
 		resetParties()
 	}
+	console.table(parties)
+	parties.sort(compare);
 }
 
 function setParties() {
-	if (filledIn == false) {	
+	if (filledIn == false) {
 		for (let i = 0; i < parties.length; i++) {
-			var partieTop = document.createElement("li");
-			var question = document.createTextNode(parties[i].name);
-			partieTop.setAttribute("id", "partieTop");
-			partieTop.appendChild(question);
-			document.getElementById("partie").appendChild(partieTop);
+			var inputPartieTop = document.createElement("input");
+			var liPartieTop = document.createElement("li");
+			var partie = document.createTextNode(parties[i].name);
+			inputPartieTop.setAttribute("type", "checkbox");
+			inputPartieTop.setAttribute("id", "partieInp" + i);
+			inputPartieTop.setAttribute("onclick", "setImportantPartie(this.id)");
+			liPartieTop.setAttribute("id", "partieLi" + i);
+			liPartieTop.appendChild(inputPartieTop);
+			liPartieTop.appendChild(partie);
+			document.getElementById("partie").appendChild(liPartieTop);
 		}
 	}
 }
@@ -142,49 +153,66 @@ function setParties() {
 function setquestions() {
 	if (filledIn == false) {	
 		for (let i = 0; i < subjects.length; i++) {
-			var impQuestion = document.createElement("li");
+			var inputImpQuestion = document.createElement("input");
+			var liImpQuestion = document.createElement("li");
 			var question = document.createTextNode(subjects[i].title);
-			impQuestion.setAttribute("id", i);
-			impQuestion.appendChild(question);
-			document.getElementById("questions").appendChild(impQuestion);
-			impQuestion.setAttribute("onclick", "setImportantQuestion(this.id)");
+			inputImpQuestion.setAttribute("type", "checkbox");
+			inputImpQuestion.setAttribute("id", "question" + i);
+			inputImpQuestion.setAttribute("onclick", "setImportantQuestion(this.id)");
+			liImpQuestion.appendChild(inputImpQuestion);
+			liImpQuestion.appendChild(question);
+			document.getElementById("questions").appendChild(liImpQuestion);
 		}
 	}
 }
 
-function setImportantQuestion(i) {
-	for (let a = 0; a < subjects[i].parties.length; a++) {
-		if (subjects[i].parties[a].position == answers[i].toLowerCase()) {
-			parties.find(checkName).score++;
+function setImportantPartie(a) {
+	var i = a.replace("partieInp", "");
+	subjects[i].parties.forEach(party => {
+		if (document.getElementById("partieInp" + i).checked == true) {
+			if (party.name == parties[i].name) {
+				parties.find(parties => parties.name == party.name ).important = true;
+			}
+		} else {
+			if (party.name == parties[i].name) {
+				parties.find(parties => parties.name == party.name ).important = false;
+			}
 		}
-		function checkName(parties) { 
-			return parties.name == subjects[i].parties[a].name;
+		resetParties()
+	})
+	console.table(parties)
+}
+
+function setImportantQuestion(a) {
+	var i = a.replace("question", "");
+	subjects[i].parties.forEach(party => {
+		if (document.getElementById("question" + i).checked == true) {
+			if (party.position == answers[i].toLowerCase()) {
+				parties.find(parties => parties.name == party.name ).score++;
+			}
+		} else {
+			if (party.position == answers[i].toLowerCase()) {
+				parties.find(parties => parties.name == party.name ).score--;
+			}
 		}
-	}
-	resetParties()
+		resetParties()
+	})
+	console.table(parties)
 }
 
 function resetParties() {
 	for (let i = 0; i < parties.length; i++) {
-		var partieTop = document.getElementById("partieTop");
+		var partieTop = document.getElementById("partieInp" + i);
+		var liPartieTop = document.getElementById("partieLi" + i);
+		liPartieTop.style.display = "block"
 		partieTop.innerHTML = parties[i].name;
-		document.getElementById("partie").appendChild(partieTop);
+		document.getElementById("partie").appendChild(liPartieTop);
 	}
-	parties.sort(compare);
 }
 
 function updatePartie(i) {
-		var partieTop = document.getElementById("partieTop");
-		partieTop.innerHTML = parties[i].name;
-		document.getElementById("partie").appendChild(partieTop);
-}
-
-function clearParties() {
-	for (let i = 0; i < parties.length; i++) {
-		var partieTop = document.getElementById("partieTop");
-		partieTop.innerHTML = "";
-		document.getElementById("partie").appendChild(partieTop);
-	}
+		var liPartieTop = document.getElementById("partieLi" + i);
+		liPartieTop.style.display = "none";
 }
 
 // other
