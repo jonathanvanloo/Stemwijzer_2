@@ -19,16 +19,16 @@ for (let i = 0; i < parties.length; i++) {
 	parties[i].important = false
 }
 
-// hieronder word de eerste pagina aangeroepen
+// de eerste pagina aangeroepen
 home()
 
-// hieronder word de home pagina klaargezet
+// de home pagina klaargezet
 function home() {
 	setdisplay("inline","none","none","none")
 	document.getElementById('start').onclick = questions;
 }
   
-// hieronder word de pagina met de vragen klaargezet
+// de pagina met de vragen klaargezet
 function questions() {
 	setdisplay("none","inline","none","none")
 	selectButtons()
@@ -140,7 +140,8 @@ function setSeculiereVragenFilter() {
 // hieronder worden de partijen klaargezet
 function setParties() {
 	if (filledIn == false) {
-		for (let i = 0; i < 10; i++) {
+		let top10 = parties.length > 10 ? 10 : parties.length;
+		for (let i = 0; i < top10; i++) {
 			var inputPartieTop = document.createElement("input");
 			var liPartieTop = document.createElement("li");
 			var partie = document.createTextNode(parties[i].name);
@@ -210,9 +211,11 @@ function setImportantQuestion(a) {
 
 // hieronder worden de partijen gerest klaargezet
 function resetParties() {
-	for (let i = 0; i < parties.length; i++) {
+	let top10 = parties.length > 10 ? 10 : parties.length;
+	for (let i = 0; i < top10; i++) {
 		var partieTop = document.getElementById("partieInp" + i);
 		var liPartieTop = document.getElementById("partieLi" + i);
+		// console.log(liPartieTop)
 		liPartieTop.style.display = "block"
 		partieTop.innerHTML = parties[i].name;
 		document.getElementById("partie").appendChild(liPartieTop);
